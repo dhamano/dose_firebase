@@ -1,30 +1,45 @@
 <template>
-  <div>
+  <div class="container">
     <form @submit="onSubmit($event)">
       <div>
-        <input
-          type="number"
-          :v-model="rating"
-          min="1"
-          max="5"
-          v-model="myForm.rating"
-          required
-        />
-        <select
-          name="device-variation"
-          v-model.trim="myForm.deviceVariation"
-          required
-        >
-          <option
-            v-for="(variation, index) in variations"
-            :key="index"
-            :v-model="variation"
+        <b-field label="Rating">
+          <b-numberinput
+            id="rating"
+            type="number"
+            min="1"
+            max="5"
+            v-model="myForm.rating"
+            required
+          />
+        </b-field>
+        <b-field label="Device Variation">
+          <b-select
+            id="device-variation"
+            placeholder="select variation"
+            name="device-variation"
+            v-model.trim="myForm.deviceVariation"
+            required
+            expanded
           >
-            {{ variation }}
-          </option>
-        </select>
-        <textarea name="review" v-model="myForm.review"></textarea>
-        <button type="submit">submit</button>
+            <option
+              v-for="(variation, index) in variations"
+              :key="index"
+              :v-model="variation"
+            >
+              {{ variation }}
+            </option>
+          </b-select>
+        </b-field>
+        <b-field label="Review">
+          <b-input
+            id="review"
+            maxlength="500"
+            type="textarea"
+            name="review"
+            v-model="myForm.review"
+          />
+        </b-field>
+        <button type="submit" class="button is-primary">submit</button>
       </div>
     </form>
   </div>
@@ -37,7 +52,11 @@ export default {
   props: {},
   data() {
     return {
-      myForm: {},
+      myForm: {
+        rating: 1,
+        deviceVariation: "",
+        review: "",
+      },
       variations: [
         "Charcoal Fabric",
         "Sandstone Fabric",
@@ -62,6 +81,12 @@ export default {
         })
         .then(function() {
           console.log("success");
+          let ratingEl = document.querySelector("#rating"),
+            deviceEl = document.querySelector("#device-variation"),
+            reviewEl = document.querySelector("#review");
+          ratingEl.value = 1;
+          deviceEl.value = "";
+          reviewEl.value = "";
         })
         .catch(function() {
           console.log("failed");

@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <Form
-      :rating="rating"
-      :deviceVariation="deviceVariation"
-      :review="review"
-    />
+    <div class="columms">
+      <section class="column is-half is-offset-one-quarter">
+        <header>
+          <h2>Alexa Review</h2>
+        </header>
+        <Form />
+      </section>
+    </div>
   </div>
 </template>
 
@@ -34,5 +37,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+
+  h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+  }
 }
 </style>
